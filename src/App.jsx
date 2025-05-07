@@ -5,7 +5,7 @@ import Header from "./components/Header";
 
 function App() {
 
-  console.log(db);
+  const [data, setData] = useState(db)
 
   return (
     <>
