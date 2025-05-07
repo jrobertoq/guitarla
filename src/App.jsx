@@ -1,12 +1,11 @@
 import { useState } from 'react'
+import { db } from './data/db.js'
 import Guitar from "./components/Guitar";
 import Header from "./components/Header";
 
 function App() {
 
-  //State
-  const [auth, setAuth] = useState(false)
-  console.log(auth)
+  console.log(db);
 
   return (
     <>
