@@ -13,17 +13,21 @@ function App() {
     const itemExists = cart.findIndex(guitar => guitar.id === item.id)
     
     if(itemExists >= 0) {
-      console.log("El item ya existe")
       const updatedCart = [...cart]
       updatedCart[itemExists].quantity++
       setCart(updatedCart)
     } else {
-      console.log("El item no existe")
       item.quantity = 1
       setCart([...cart, item])
     }
-    
-    
+  }
+
+  function removeFromCart(id) {
+    setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+  }
+
+  function increaseQuantity(id) {
+    console.log("incrementando", id)
   }
 
   return (
@@ -31,6 +35,8 @@ function App() {
     
     <Header 
       cart={cart}
+      removeFromCart={removeFromCart}
+      increaseQuantity={increaseQuantity}
     />
 
     <main className="container-xl mt-5">

@@ -1,8 +1,10 @@
-export default function Header({cart}) {
+import { useMemo } from "react"
+
+export default function Header({cart, removeFromCart, increaseQuantity}) {
 
     //State derivado
-    const isCartEmpty = () => cart.length === 0
-    const totalCart = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0)
+    const isCartEmpty = useMemo(() => cart.length === 0, [cart])
+    const totalCart = useMemo(() => cart.reduce((total, item) => total + (item.price * item.quantity), 0), [cart])
 
     return (
         <header className="py-5 header">
@@ -10,17 +12,17 @@ export default function Header({cart}) {
                 <div className="row justify-content-center justify-content-md-between">
                     <div className="col-8 col-md-3">
                         <a href="index.html">
-                            <img className="img-fluid" src="./public/img/logo.svg" alt="imagen logo" />
+                            <img className="img-fluid" src="/img/logo.svg" alt="imagen logo" />
                         </a>
                     </div>
                     <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
                         <div 
                             className="carrito"
                         >
-                            <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
+                            <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
                             <div id="carrito" className="bg-white p-3">
-                                {isCartEmpty() ? (
+                                {isCartEmpty ? (
                                 <p className="text-center">El carrito esta vacio</p>
                                 ) : (
                                     <>
@@ -53,6 +55,7 @@ export default function Header({cart}) {
                                                         <button
                                                             type="button"
                                                             className="btn btn-dark"
+                                                            onClick={ () => increaseQuantity(guitar.id) }
                                                         >
                                                             +
                                                         </button>
@@ -61,6 +64,7 @@ export default function Header({cart}) {
                                                         <button
                                                             className="btn btn-danger"
                                                             type="button"
+                                                            onClick={ () => removeFromCart(guitar.id) }
                                                         >
                                                             X
                                                         </button>
@@ -70,7 +74,7 @@ export default function Header({cart}) {
                                         </tbody>
                                     </table>
                                     
-                                    <p className="text-end">Total pagar: <span className="fw-bold">${totalCart()}</span></p>
+                                    <p className="text-end">Total pagar: <span className="fw-bold">${totalCart}</span></p>
                                 </>
                             )}
                             
